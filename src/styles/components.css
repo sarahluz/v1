@@ -529,6 +529,15 @@
   flex-shrink: 0;
 }
 .nav__logo-icon { flex-shrink: 0; }
+.logo-img {
+  display: block;
+  width: auto;
+  flex-shrink: 0;
+  height: 36px;
+}
+[data-theme="dark"] .nav .logo-img {
+  filter: brightness(0) invert(1);
+}
 .nav__brand {
   font-family: var(--font-display);
   font-size: 1.25rem;

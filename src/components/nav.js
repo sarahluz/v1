@@ -10,7 +10,7 @@ export function renderNav() {
     <nav class="nav">
       <div class="nav__inner">
         <a class="nav__logo" data-route="/" href="#/">
-          ${_logoSVG()}
+          <img src="${import.meta.env.BASE_URL}logo.png" alt="Cloud809" class="logo-img" />
           <span class="nav__brand">Cloud809</span>
         </a>
 
@@ -163,12 +163,3 @@ function _sunIcon() {
   </svg>`
 }
 
-function _logoSVG() {
-  return `
-    <svg class="nav__logo-icon" width="36" height="26" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M9 22C5.686 22 3 19.314 3 16C3 13.1 4.993 10.677 7.7 10.1C7.568 9.415 7.5 8.716 7.5 8C7.5 4.134 10.634 1 14.5 1C17.48 1 20.016 2.857 21.07 5.5C21.647 5.18 22.306 5 23 5C25.21 5 27 6.79 27 9C27 9.07 26.998 9.14 26.993 9.21C30.354 9.77 33 12.68 33 16.2C33 19.952 30.007 23 26.255 23H9.745" stroke="#1B1FBF" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <circle cx="28" cy="5" r="4" fill="#FF1A6C"/>
-      <circle cx="28" cy="5" r="2" fill="#FF4D8A"/>
-    </svg>
-  `
-}

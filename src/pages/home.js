@@ -30,11 +30,7 @@ export function render() {
               <div class="hero__globe-ring"></div>
               <div class="hero__globe-ring-2"></div>
               <div class="hero__center-logo">
-                <svg class="hero__logo-large" width="120" height="90" viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M28 78C18.06 78 10 69.94 10 60C10 51.5 15.6 44.3 23.3 41.9C23.1 40.6 23 39.3 23 38C23 26.4 32.4 17 44 17C52.8 17 60.3 22.5 63.6 30.3C65.2 29.4 67 28.9 69 28.9C75.3 28.9 80.4 33.7 81.3 39.9C82.5 39.7 83.7 39.6 84.9 39.6C93.9 39.8 101 47 101 56.1C101 65.2 93.9 72.4 84.9 72.4H28.1" stroke="rgba(255,255,255,0.9)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-                  <circle cx="95" cy="18" r="12" fill="#FF1A6C" opacity="0.9"/>
-                  <circle cx="95" cy="18" r="6" fill="#FF4D8A"/>
-                </svg>
+                <img src="${import.meta.env.BASE_URL}logo.png" alt="" class="logo-img hero__logo-img" aria-hidden="true" />
               </div>
               <div class="hero__flag-dots">
                 <span class="hero__dot"></span>

@@ -97,8 +97,9 @@
   align-items: center;
   justify-content: center;
 }
-.hero__logo-large {
-  filter: drop-shadow(0 4px 24px rgba(255,26,108,0.4));
+.hero__logo-img {
+  height: 48px;
+  filter: brightness(0) invert(1) drop-shadow(0 4px 24px rgba(255,26,108,0.4));
 }
 .hero__flag-dots {
   position: absolute;
