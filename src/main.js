@@ -2,6 +2,8 @@ import './styles/base.css'
 import './styles/components.css'
 import './styles/layout.css'
 
+import './components/intro-animation.js'
+
 import { detectLanguage } from './translations.js'
 import { detectTheme } from './theme.js'
 import { renderNav, mountNav } from './components/nav.js'
