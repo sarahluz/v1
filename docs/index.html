@@ -427,14 +427,15 @@
         border-color 0.25s,
         background 0.25s;
     }
-    .feat-card.visible { opacity: 1; transform: none; }
+    .feat-card.visible { opacity: 1; transform: none; transition-delay: 0s; }
     .feat-card:nth-child(2) { transition-delay: 0.09s; }
     .feat-card:nth-child(3) { transition-delay: 0.18s; }
     .feat-card:nth-child(4) { transition-delay: 0.27s; }
     .feat-card:hover {
-      border-color: rgba(255,255,255,0.13);
+      border-color: rgba(255,255,255,0.15);
       background: rgba(255,255,255,0.06);
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(255,26,108,0.15);
     }
     .feat-icon {
       font-size: 2.125rem;
@@ -517,6 +518,85 @@
     @media (max-width: 400px) {
       .headline { font-size: 3rem; }
     }
+
+    /* ── Nav pill as button ───────────────────────────────────────────── */
+    button.nav-pill { font-family: var(--font-sans); cursor: pointer; }
+
+    /* ── Badge interactive ────────────────────────────────────────────── */
+    .badge { cursor: pointer; }
+    .badge:hover { background: rgba(255,255,255,0.12); }
+    .badge:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+    /* ── Feature cards as links ───────────────────────────────────────── */
+    a.feat-card { text-decoration: none; color: inherit; display: block; }
+    .feat-card::after {
+      content: '→';
+      position: absolute;
+      bottom: 1.25rem; right: 1.25rem;
+      font-size: 1rem;
+      color: var(--pink);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .feat-card:hover::after { opacity: 1; transform: translateX(0); }
+
+    /* ── Footer brand button ──────────────────────────────────────────── */
+    .footer-brand-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: none; border: none; padding: 0; cursor: pointer;
+      color: rgba(255,255,255,0.48); font-weight: 500;
+      font-family: var(--font-serif); font-size: 0.9375rem;
+      transition: color 0.2s;
+    }
+    .footer-brand-btn:hover { color: rgba(255,255,255,0.78); }
+
+    /* ── Form error message ───────────────────────────────────────────── */
+    .form-error {
+      display: none; margin-top: 0.5rem;
+      text-align: center; font-size: 0.8rem; color: #FF8A9B;
+    }
+
+    /* ── Modal ────────────────────────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: linear-gradient(145deg, #0f1235, #0a0d22);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 20px;
+      padding: 2.25rem 2rem 2rem;
+      max-width: 380px; width: calc(100% - 3rem);
+      position: relative;
+      transform: scale(0.94) translateY(12px);
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .modal-backdrop.open .modal-box { transform: none; }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1.125rem;
+      background: none; border: none;
+      color: rgba(255,255,255,0.45); font-size: 1.375rem;
+      line-height: 1; cursor: pointer;
+      padding: 0.25rem 0.375rem; border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .modal-close:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .modal-title {
+      font-family: var(--font-serif); font-size: 1.3125rem;
+      font-weight: 700; color: #fff;
+      margin-bottom: 1rem; letter-spacing: -0.01em;
+    }
+    .modal-body {
+      font-size: 0.9375rem; color: rgba(255,255,255,0.6); line-height: 1.72;
+    }
+    .modal-body strong { color: rgba(255,255,255,0.88); }
   </style>
 </head>
 <body>
@@ -541,17 +621,17 @@
       <img src="./logo.png" alt="" class="logo-img" aria-hidden="true" />
       Cloud809
     </a>
-    <a href="#notify" class="nav-pill">Notifícame ↓</a>
+    <button id="nav-notify-btn" class="nav-pill">Notifícame ↓</button>
   </nav>
 
   <!-- ── HERO ─────────────────────────────────────────────────────────── -->
   <section class="hero layer" aria-labelledby="hero-h1">
     <div class="hero-inner">
 
-      <div class="badge">
+      <button class="badge" id="launch-badge" aria-haspopup="dialog">
         <span class="badge-dot" aria-hidden="true"></span>
         Lanzamiento próximo
-      </div>
+      </button>
 
       <h1 class="headline" id="hero-h1">
         Born in <span class="accent-dr">DR</span>.<br>
@@ -568,8 +648,8 @@
         <span>el código de área de casa</span>
       </div>
 
-      <div class="form-wrap" id="notify">
-        <form id="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <div class="form-wrap" id="notify-form">
+        <form id="email-form" action="https://formspree.io/f/xqenerle" method="POST" novalidate>
           <div class="form-row">
             <label for="email" class="visually-hidden">Correo electrónico</label>
             <input
@@ -584,6 +664,7 @@
             <button type="submit" id="submit-btn">Notifícame</button>
           </div>
           <p class="form-hint">Sin spam — solo un correo cuando lancemos. 🇩🇴</p>
+          <p class="form-error" id="form-error"></p>
         </form>
         <div class="success-msg" id="success-msg" role="status" aria-live="polite">
           ✓&nbsp; ¡Listo! Te avisamos cuando lancemos. 🚀
@@ -611,40 +692,40 @@
       <p>Una plataforma para personas reales, en el idioma en que piensan.</p>
     </div>
     <div class="features-grid">
-      <div class="feat-card">
+      <a href="/v1/#courses" class="feat-card">
         <span class="feat-icon" aria-hidden="true">📚</span>
         <h3>Cursos gratuitos</h3>
         <p>Rutas de aprendizaje en español e inglés, aportadas por practicantes — no solo teoría.</p>
-      </div>
-      <div class="feat-card">
+      </a>
+      <a href="/v1/#kb" class="feat-card">
         <span class="feat-icon" aria-hidden="true">📖</span>
         <h3>Base de conocimiento</h3>
         <p>Artículos mantenidos por la comunidad sobre herramientas, conceptos y tutoriales que importan en RD.</p>
-      </div>
-      <div class="feat-card">
+      </a>
+      <a href="/v1/#experts" class="feat-card">
         <span class="feat-icon" aria-hidden="true">🧠</span>
         <h3>Red de expertos</h3>
         <p>Conéctate con profesionales tech locales y de la diáspora dispuestos a compartir lo que saben.</p>
-      </div>
-      <div class="feat-card">
+      </a>
+      <a href="/v1/#community" class="feat-card">
         <span class="feat-icon" aria-hidden="true">🤝</span>
         <h3>Comunidad</h3>
         <p>Publica preguntas, encuentra colaboradores y construye junto a otros — completamente abierto, sin gatekeeping.</p>
-      </div>
+      </a>
     </div>
   </section>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
   <footer class="layer">
     <div class="footer-inner">
-      <div class="footer-brand">
+      <button class="footer-brand-btn" id="footer-brand-btn" aria-label="Volver arriba">
         <img src="./logo.png" alt="" class="logo-img footer-logo" aria-hidden="true" />
         Cloud809
-      </div>
+      </button>
       <div class="footer-center">
         <span>Sin fines de lucro</span>
         <span class="footer-dot" aria-hidden="true"></span>
-        <span>Código abierto</span>
+        <a href="https://github.com/sarahluz/cloud809" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Código abierto</a>
         <span class="footer-dot" aria-hidden="true"></span>
         <span>🇩🇴 Hecho con ❤️ en RD</span>
       </div>
@@ -652,12 +733,25 @@
     </div>
   </footer>
 
+  <!-- Launch modal -->
+  <div class="modal-backdrop" id="launch-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">×</button>
+      <p class="modal-title" id="modal-title">¿Cuándo lanzamos?</p>
+      <div class="modal-body">
+        <p>Estamos construyendo Cloud809 en abierto, a nuestro propio ritmo. <strong>El lanzamiento público está previsto para 2025</strong>, comenzando con los cursos y la base de conocimiento.</p>
+        <br>
+        <p>Déjanos tu correo arriba y serás de los primeros en saber cuando abramos las puertas. Sin spam — solo ese correo.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* ── Particle network ──────────────────────────────────────────────── */
     ;(function () {
       const canvas = document.getElementById('bg-canvas')
       const ctx    = canvas.getContext('2d')
-      let pts = [], W, H, raf
+      let pts = [], W, H
 
       function resize() {
         W = canvas.width  = window.innerWidth
@@ -690,7 +784,6 @@
 
       function frame() {
         ctx.clearRect(0, 0, W, H)
-
         for (let i = 0; i < pts.length; i++) {
           pts[i].tick()
           for (let j = i + 1; j < pts.length; j++) {
@@ -711,8 +804,7 @@
           ctx.fillStyle = `rgba(255,255,255,${pts[i].a})`
           ctx.fill()
         }
-
-        raf = requestAnimationFrame(frame)
+        requestAnimationFrame(frame)
       }
 
       resize(); init(); frame()
@@ -735,17 +827,68 @@
       document.querySelectorAll('.feat-card').forEach(c => io.observe(c))
     })()
 
+    /* ── Nav "Notifícame" smooth scroll ────────────────────────────────── */
+    document.getElementById('nav-notify-btn').addEventListener('click', () => {
+      document.getElementById('notify-form').scrollIntoView({ behavior: 'smooth', block: 'center' })
+    })
+
+    /* ── Footer logo scroll to top ─────────────────────────────────────── */
+    document.getElementById('footer-brand-btn').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+
+    /* ── Launch badge modal ────────────────────────────────────────────── */
+    ;(function () {
+      const backdrop = document.getElementById('launch-modal')
+      const openBtn  = document.getElementById('launch-badge')
+      const closeBtn = document.getElementById('modal-close')
+
+      function openModal() {
+        backdrop.classList.add('open')
+        closeBtn.focus()
+      }
+      function closeModal() {
+        backdrop.classList.remove('open')
+        openBtn.focus()
+      }
+
+      openBtn.addEventListener('click', openModal)
+      closeBtn.addEventListener('click', closeModal)
+      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal() })
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal() })
+    })()
+
     /* ── Form submission ───────────────────────────────────────────────── */
     ;(function () {
-      const form       = document.getElementById('email-form')
+      const form      = document.getElementById('email-form')
+      const emailInput = document.getElementById('email')
       const successMsg = document.getElementById('success-msg')
       const submitBtn  = document.getElementById('submit-btn')
+      const errorEl    = document.getElementById('form-error')
       const origLabel  = submitBtn.textContent
+
+      function showError(msg) {
+        errorEl.textContent    = msg
+        errorEl.style.display  = 'block'
+      }
+      function clearError() {
+        errorEl.style.display  = 'none'
+        errorEl.textContent    = ''
+      }
 
       form.addEventListener('submit', async e => {
         e.preventDefault()
+        clearError()
+
+        const email = emailInput.value.trim()
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showError('Ingresa un correo válido.')
+          emailInput.focus()
+          return
+        }
+
         submitBtn.disabled    = true
-        submitBtn.textContent = '...'
+        submitBtn.textContent = 'Enviando...'
 
         try {
           const res = await fetch(form.action, {
@@ -756,16 +899,17 @@
 
           if (res.ok) {
             form.style.display       = 'none'
+            successMsg.textContent   = `✓ ¡Listo! Te avisamos en ${email} 🚀`
             successMsg.style.display = 'block'
           } else {
             submitBtn.disabled    = false
             submitBtn.textContent = origLabel
-            alert('Algo salió mal. Por favor intenta de nuevo.')
+            showError('Algo salió mal. Intenta de nuevo.')
           }
         } catch {
           submitBtn.disabled    = false
           submitBtn.textContent = origLabel
-          alert('Error de red. Por favor intenta de nuevo.')
+          showError('Algo salió mal. Intenta de nuevo.')
         }
       })
     })()
