@@ -4,27 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cloud809 — Born in DR. Built for Everyone.</title>
-  <meta name="description" content="Una plataforma de educación tech sin fines de lucro, nacida en la República Dominicana y construida para todos. Únete a la lista de espera." />
+  <meta name="description" content="Una plataforma de educación tech sin fines de lucro, nacida en la República Dominicana. Únete a la lista de espera." />
   <meta property="og:title" content="Cloud809 — Born in DR. Built for Everyone." />
   <meta property="og:description" content="Educación tech para RD y el mundo. Únete a la lista de espera." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cobalt:      #1B1FBF;
-      --cobalt-lt:   #3539D4;
-      --pink:        #FF1A6C;
-      --pink-lt:     #FF4D8A;
-      --dr-blue:     #002D9C;
-      --dr-red:      #CE1126;
-      --bg:          #06081A;
-      --font-serif:  'Fraunces', Georgia, serif;
-      --font-sans:   'DM Sans', system-ui, sans-serif;
+      --cobalt:     #1B1FBF;
+      --cobalt-lt:  #3539D4;
+      --pink:       #FF1A6C;
+      --pink-lt:    #FF4D8A;
+      --dr-blue:    #002D9C;
+      --dr-red:     #CE1126;
+      --bg:         #0D1117;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans:  'DM Sans', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Courier New', monospace;
     }
 
     html { scroll-behavior: smooth; }
@@ -38,12 +39,11 @@
       line-height: 1.6;
     }
 
-    /* dot grid overlay */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.032) 1px, transparent 1px);
       background-size: 28px 28px;
       pointer-events: none;
       z-index: 0;
@@ -55,137 +55,93 @@
       clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    /* ── Particle canvas ──────────────────────────────────────────────── */
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
-    /* ── Gradient blobs ───────────────────────────────────────────────── */
-    .blobs {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-    }
+    .blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(110px); }
     .blob-1 {
       width: 720px; height: 720px;
-      background: radial-gradient(circle, rgba(27,31,191,0.55) 0%, transparent 68%);
+      background: radial-gradient(circle, rgba(27,31,191,0.42) 0%, transparent 68%);
       top: -260px; left: -220px;
       animation: drift-a 22s ease-in-out infinite alternate;
     }
     .blob-2 {
       width: 580px; height: 580px;
-      background: radial-gradient(circle, rgba(255,26,108,0.42) 0%, transparent 68%);
+      background: radial-gradient(circle, rgba(255,26,108,0.32) 0%, transparent 68%);
       bottom: -160px; right: -160px;
       animation: drift-b 28s ease-in-out infinite alternate;
     }
-    .blob-3 {
-      width: 460px; height: 460px;
-      background: radial-gradient(circle, rgba(53,57,212,0.32) 0%, transparent 68%);
-      top: 38%; right: 8%;
-      animation: drift-c 19s ease-in-out infinite alternate;
-    }
     @keyframes drift-a { to { transform: translate(110px, 90px) scale(1.12); } }
     @keyframes drift-b { to { transform: translate(-85px, -95px) scale(0.88); } }
-    @keyframes drift-c { to { transform: translate(65px, 110px) scale(1.18); } }
 
-    /* ── Layer above blobs ────────────────────────────────────────────── */
     .layer { position: relative; z-index: 1; }
 
-    /* ── Nav ──────────────────────────────────────────────────────────── */
+    /* ── Nav ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.125rem 1.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; padding: 1.125rem 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
     }
     .nav-shade {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(6,8,26,0.85) 0%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(13,17,23,0.9) 0%, transparent 100%);
       pointer-events: none;
     }
     .brand {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.01em;
+      position: relative; display: flex; align-items: center; gap: 0.625rem;
+      font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700;
+      color: #fff; text-decoration: none; letter-spacing: -0.01em;
     }
-    .nav-pill {
-      position: relative;
-      background: rgba(255,255,255,0.09);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.9);
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      backdrop-filter: blur(10px);
+    .nav-actions { position: relative; display: flex; align-items: center; gap: 0.5rem; }
+    .discord-btn {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); padding: 0.4rem 0.875rem 0.4rem 0.625rem;
+      border-radius: 9999px; font-size: 0.8125rem; font-weight: 500;
+      font-family: var(--font-sans); text-decoration: none;
       transition: background 0.2s, border-color 0.2s;
     }
-    .nav-pill:hover {
-      background: rgba(255,255,255,0.16);
-      border-color: rgba(255,255,255,0.3);
+    .discord-btn:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.28); }
+    .discord-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .lang-toggle {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.75); padding: 0.4rem 0.75rem;
+      border-radius: 9999px; font-size: 0.8rem; font-weight: 600;
+      font-family: var(--font-mono); cursor: pointer; letter-spacing: 0.04em;
+      transition: background 0.2s, color 0.2s;
     }
+    .lang-toggle:hover { background: rgba(255,255,255,0.13); color: #fff; }
+    .nav-pill {
+      position: relative; background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+      padding: 0.5rem 1.25rem; border-radius: 9999px; font-size: 0.875rem;
+      font-weight: 500; font-family: var(--font-sans); backdrop-filter: blur(10px);
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-pill:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.3); }
 
-    /* ── DR flag accent bar ───────────────────────────────────────────── */
+    /* ── Flag bar ── */
     .flag-bar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 3px;
+      position: fixed; top: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg,
-        var(--dr-blue) 0%,
-        var(--dr-blue) 33.33%,
-        #fff 33.33%,
-        #fff 66.66%,
-        var(--dr-red) 66.66%,
-        var(--dr-red) 100%
-      );
-      opacity: 0.6;
-      z-index: 200;
+        var(--dr-blue) 0%, var(--dr-blue) 33.33%,
+        #fff 33.33%, #fff 66.66%,
+        var(--dr-red) 66.66%, var(--dr-red) 100%);
+      opacity: 0.65; z-index: 200;
     }
 
-    /* ── Hero ─────────────────────────────────────────────────────────── */
+    /* ── Hero ── */
     .hero {
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 7rem 1.5rem 5rem;
-      text-align: center;
+      min-height: 100dvh; display: flex; align-items: center;
+      justify-content: center; padding: 7rem 1.5rem 5rem; text-align: center;
     }
     .hero-inner {
-      max-width: 680px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.875rem;
+      max-width: 680px; width: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 1.875rem;
     }
-
-    /* staggered fade-up */
     .hero-inner > * {
-      opacity: 0;
-      transform: translateY(22px);
-      animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0; transform: translateY(22px);
+      animation: rise 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
     }
     .hero-inner > *:nth-child(1) { animation-delay: 0.1s; }
     .hero-inner > *:nth-child(2) { animation-delay: 0.3s; }
@@ -195,94 +151,53 @@
     .hero-inner > *:nth-child(6) { animation-delay: 0.95s; }
     @keyframes rise { to { opacity: 1; transform: none; } }
 
-    /* badge */
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      padding: 0.375rem 0.9rem;
-      border-radius: 9999px;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: rgba(255,255,255,0.8);
-      backdrop-filter: blur(8px);
-      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+      padding: 0.375rem 0.9rem; border-radius: 9999px;
+      font-size: 0.775rem; font-weight: 500; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.8); backdrop-filter: blur(8px);
+      text-transform: uppercase; cursor: pointer;
+      font-family: var(--font-mono); transition: background 0.2s;
     }
+    .badge:hover { background: rgba(255,255,255,0.12); }
+    .badge:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
     .badge-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--pink);
-      animation: pulse-dot 2.2s ease-in-out infinite;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--pink);
+      animation: pulse-dot 2.2s ease-in-out infinite; flex-shrink: 0;
     }
     @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,26,108,0.7); }
-      55%       { box-shadow: 0 0 0 5px rgba(255,26,108,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,26,108,0.7); }
+      55%      { box-shadow: 0 0 0 5px rgba(255,26,108,0); }
     }
 
-    /* headline */
     .headline {
-      font-family: var(--font-serif);
-      font-size: clamp(3.25rem, 9vw, 5.75rem);
-      font-weight: 900;
-      line-height: 1.03;
-      color: #fff;
-      letter-spacing: -0.025em;
+      font-family: var(--font-serif); font-size: clamp(3.25rem,9vw,5.75rem);
+      font-weight: 900; line-height: 1.03; color: #fff; letter-spacing: -0.025em;
     }
     .accent-dr {
       background: linear-gradient(100deg, #3DA8FF 0%, #CE1126 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .accent-all {
-      background: linear-gradient(100deg, var(--pink) 0%, #8B8FFF 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      background: linear-gradient(100deg, var(--pink) 0%, var(--cobalt-lt) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
 
-    /* subtitle */
     .sub {
-      font-size: clamp(1rem, 1.8vw, 1.175rem);
-      color: rgba(255,255,255,0.68);
-      max-width: 500px;
-      line-height: 1.72;
+      font-size: clamp(1rem,1.8vw,1.175rem); color: rgba(255,255,255,0.68);
+      max-width: 500px; line-height: 1.72;
     }
 
-    /* area code note */
-    .areacode {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8125rem;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.03em;
-    }
-    .areacode-num {
-      font-family: var(--font-serif);
-      font-size: 1rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.12em;
-    }
-    .areacode-sep {
-      width: 16px; height: 1px;
-      background: rgba(255,255,255,0.2);
-    }
+    .areacode { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: rgba(255,255,255,0.35); }
+    .areacode-num { font-family: var(--font-mono); font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.55); letter-spacing: 0.12em; }
+    .areacode-sep { width: 16px; height: 1px; background: rgba(255,255,255,0.2); }
 
-    /* form */
     .form-wrap { width: 100%; max-width: 460px; }
     .form-row {
-      display: flex;
-      align-items: center;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 9999px;
-      padding: 5px 5px 5px 22px;
-      gap: 8px;
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 9999px; padding: 5px 5px 5px 22px; gap: 8px;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .form-row:focus-within {
@@ -290,389 +205,217 @@
       box-shadow: 0 0 0 3px rgba(27,31,191,0.28), 0 0 50px rgba(255,26,108,0.06);
     }
     .form-row input[type="email"] {
-      flex: 1;
-      min-width: 0;
-      background: none;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-size: 0.9375rem;
-      font-family: var(--font-sans);
+      flex: 1; min-width: 0; background: none; border: none; outline: none;
+      color: #fff; font-size: 0.9375rem; font-family: var(--font-sans);
     }
     .form-row input::placeholder { color: rgba(255,255,255,0.3); }
     .form-row button {
-      flex-shrink: 0;
-      background: var(--pink);
-      color: #fff;
-      border: none;
-      padding: 0.625rem 1.375rem;
-      border-radius: 9999px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      font-family: var(--font-sans);
-      cursor: pointer;
-      transition: background 0.15s, transform 0.12s;
-      white-space: nowrap;
+      flex-shrink: 0; background: var(--pink); color: #fff; border: none;
+      padding: 0.625rem 1.375rem; border-radius: 9999px; font-size: 0.9rem;
+      font-weight: 600; font-family: var(--font-sans); cursor: pointer;
+      transition: background 0.15s, transform 0.12s; white-space: nowrap;
     }
     .form-row button:hover  { background: var(--pink-lt); }
     .form-row button:active { transform: scale(0.96); }
     .form-row button:disabled { opacity: 0.6; cursor: default; }
-    .form-hint {
-      margin-top: 0.625rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.32);
-    }
+    .form-hint { margin-top: 0.625rem; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.32); }
+    .form-error { display: none; margin-top: 0.5rem; text-align: center; font-size: 0.8rem; color: #FF8A9B; }
 
-    /* success */
     .success-msg {
-      display: none;
-      width: 100%;
-      max-width: 460px;
-      background: rgba(0,182,122,0.1);
-      border: 1px solid rgba(0,182,122,0.28);
-      border-radius: 9999px;
-      padding: 0.875rem 1.5rem;
-      text-align: center;
-      color: #6DFFC0;
-      font-size: 0.9375rem;
-      font-weight: 500;
+      display: none; width: 100%; max-width: 460px;
+      background: rgba(0,182,122,0.1); border: 1px solid rgba(0,182,122,0.28);
+      border-radius: 9999px; padding: 0.875rem 1.5rem;
+      text-align: center; color: #6DFFC0; font-size: 0.9375rem; font-weight: 500;
     }
 
-    /* social */
-    .social-row {
-      display: flex;
-      gap: 0.625rem;
-      align-items: center;
-    }
+    .social-row { display: flex; gap: 0.625rem; align-items: center; }
     .social-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.11);
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.11);
+      color: rgba(255,255,255,0.6); text-decoration: none;
       transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
     }
-    .social-btn:hover {
-      background: rgba(255,255,255,0.13);
-      color: #fff;
-      border-color: rgba(255,255,255,0.22);
-      transform: translateY(-2px);
-    }
+    .social-btn:hover { background: rgba(255,255,255,0.13); color: #fff; border-color: rgba(255,255,255,0.22); transform: translateY(-2px); }
     .social-btn svg { width: 17px; height: 17px; }
 
-    /* ── Logo image ───────────────────────────────────────────────────── */
-    .logo-img {
-      display: block;
-      width: auto;
-      height: 36px;
-      filter: brightness(0) invert(1);
-    }
+    .logo-img { display: block; width: auto; height: 36px; filter: brightness(0) invert(1); }
     .footer-logo { height: 20px; }
 
-    /* ── Divider ──────────────────────────────────────────────────────── */
-    .divider {
-      height: 1px;
-      max-width: 900px;
-      margin: 0 auto;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
-    }
+    .divider { height: 1px; max-width: 900px; margin: 0 auto; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent); }
 
-    /* ── Features ─────────────────────────────────────────────────────── */
-    .features-section {
-      padding: clamp(4.5rem, 9vw, 7.5rem) 1.5rem;
-      max-width: 1080px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .features-header {
-      text-align: center;
-      margin-bottom: 3.25rem;
-    }
-    .features-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.875rem, 4.5vw, 2.875rem);
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-    }
-    .features-header p {
-      font-size: 1.0625rem;
-      color: rgba(255,255,255,0.5);
-      max-width: 420px;
-      margin: 0 auto;
-    }
+    /* ── Features ── */
+    .features-section { padding: clamp(4.5rem,9vw,7.5rem) 1.5rem; max-width: 1080px; margin: 0 auto; width: 100%; }
+    .features-header { text-align: center; margin-bottom: 3.25rem; }
+    .features-header h2 { font-family: var(--font-serif); font-size: clamp(1.875rem,4.5vw,2.875rem); font-weight: 700; color: #fff; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .features-header p { font-size: 1.0625rem; color: rgba(255,255,255,0.5); max-width: 420px; margin: 0 auto; }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%,230px),1fr));
       gap: 1.125rem;
     }
 
     .feat-card {
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 18px;
-      padding: 1.875rem 1.5rem;
-      opacity: 0;
-      transform: translateY(26px);
-      transition:
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        border-color 0.25s,
-        background 0.25s;
+      background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px; padding: 1.875rem 1.5rem;
+      opacity: 0; transform: translateY(26px);
+      position: relative; overflow: hidden;
+      text-decoration: none; color: inherit; display: block;
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.25s, background 0.25s, box-shadow 0.25s;
     }
     .feat-card.visible { opacity: 1; transform: none; transition-delay: 0s; }
     .feat-card:nth-child(2) { transition-delay: 0.09s; }
     .feat-card:nth-child(3) { transition-delay: 0.18s; }
     .feat-card:nth-child(4) { transition-delay: 0.27s; }
-    .feat-card:hover {
-      border-color: rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.06);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px rgba(255,26,108,0.15);
-    }
-    .feat-icon {
-      font-size: 2.125rem;
-      display: block;
-      margin-bottom: 1.125rem;
-      line-height: 1;
-    }
-    .feat-card h3 {
-      font-family: var(--font-serif);
-      font-size: 1.1875rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-    }
-    .feat-card p {
-      font-size: 0.9375rem;
-      color: rgba(255,255,255,0.52);
-      line-height: 1.68;
-    }
-
-    /* hover accent lines */
-    .feat-card { position: relative; overflow: hidden; }
+    .feat-card:nth-child(5) { transition-delay: 0.36s; }
+    .feat-card:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(255,26,108,0.15); }
     .feat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--pink), var(--cobalt-lt));
-      opacity: 0;
-      transition: opacity 0.3s;
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: linear-gradient(90deg, var(--pink), var(--cobalt-lt));
+      opacity: 0; transition: opacity 0.3s;
     }
     .feat-card:hover::before { opacity: 0.6; }
-
-    /* ── Footer ───────────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.055);
-      padding: 2.25rem 1.75rem;
-    }
-    .footer-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.875rem;
-      font-size: 0.8125rem;
-      color: rgba(255,255,255,0.32);
-    }
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: rgba(255,255,255,0.48);
-      font-weight: 500;
-      font-family: var(--font-serif);
-      font-size: 0.9375rem;
-    }
-    .footer-center {
-      display: flex;
-      align-items: center;
-      gap: 0.875rem;
-    }
-    .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.2); }
-
-    /* ── Responsive ───────────────────────────────────────────────────── */
-    @media (max-width: 540px) {
-      .form-row {
-        flex-direction: column;
-        border-radius: 16px;
-        padding: 12px;
-        gap: 10px;
-      }
-      .form-row input[type="email"] { padding: 0.5rem 0.25rem; width: 100%; }
-      .form-row button { width: 100%; padding: 0.75rem; border-radius: 10px; }
-      .nav-pill { display: none; }
-      .footer-center { display: none; }
-    }
-    @media (max-width: 400px) {
-      .headline { font-size: 3rem; }
-    }
-
-    /* ── Nav pill as button ───────────────────────────────────────────── */
-    button.nav-pill { font-family: var(--font-sans); cursor: pointer; }
-
-    /* ── Badge interactive ────────────────────────────────────────────── */
-    .badge { cursor: pointer; }
-    .badge:hover { background: rgba(255,255,255,0.12); }
-    .badge:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
-
-    /* ── Feature cards as links ───────────────────────────────────────── */
-    a.feat-card { text-decoration: none; color: inherit; display: block; }
     .feat-card::after {
-      content: '→';
-      position: absolute;
-      bottom: 1.25rem; right: 1.25rem;
-      font-size: 1rem;
-      color: var(--pink);
-      opacity: 0;
-      transform: translateX(-6px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      content: '→'; position: absolute; bottom: 1.25rem; right: 1.25rem;
+      font-size: 1rem; color: var(--pink); opacity: 0;
+      transform: translateX(-6px); transition: opacity 0.2s ease, transform 0.2s ease;
     }
     .feat-card:hover::after { opacity: 1; transform: translateX(0); }
 
-    /* ── Footer brand button ──────────────────────────────────────────── */
+    .feat-icon { font-size: 2.125rem; display: block; margin-bottom: 1.125rem; line-height: 1; }
+    .feat-card h3 { font-family: var(--font-serif); font-size: 1.1875rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .feat-card p { font-size: 0.9375rem; color: rgba(255,255,255,0.52); line-height: 1.68; }
+
+    /* Discord full-width CTA card */
+    .feat-card--cta {
+      grid-column: 1 / -1; display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.5rem 1.75rem; border-color: rgba(255,26,108,0.14);
+      background: rgba(255,26,108,0.04);
+    }
+    .feat-card--cta .feat-icon { margin-bottom: 0; font-size: 1.875rem; flex-shrink: 0; }
+    .feat-card--cta .feat-text { flex: 1; min-width: 0; }
+    .feat-card--cta .cta-arrow { font-size: 1.25rem; color: var(--pink); flex-shrink: 0; transition: transform 0.2s; }
+    .feat-card--cta:hover .cta-arrow { transform: translateX(4px); }
+    .feat-card--cta::after { display: none; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid rgba(255,255,255,0.055); padding: 2.25rem 1.75rem; }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 0.875rem; font-size: 0.8125rem; color: rgba(255,255,255,0.32);
+    }
     .footer-brand-btn {
       display: flex; align-items: center; gap: 0.5rem;
       background: none; border: none; padding: 0; cursor: pointer;
       color: rgba(255,255,255,0.48); font-weight: 500;
-      font-family: var(--font-serif); font-size: 0.9375rem;
-      transition: color 0.2s;
+      font-family: var(--font-serif); font-size: 0.9375rem; transition: color 0.2s;
     }
     .footer-brand-btn:hover { color: rgba(255,255,255,0.78); }
+    .footer-center { display: flex; align-items: center; gap: 0.875rem; }
+    .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.2); }
 
-    /* ── Form error message ───────────────────────────────────────────── */
-    .form-error {
-      display: none; margin-top: 0.5rem;
-      text-align: center; font-size: 0.8rem; color: #FF8A9B;
-    }
-
-    /* ── Modal ────────────────────────────────────────────────────────── */
+    /* ── Modal ── */
     .modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.72);
-      backdrop-filter: blur(6px);
-      z-index: 500;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(6px); z-index: 500;
       display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.22s ease;
+      opacity: 0; pointer-events: none; transition: opacity 0.22s ease;
     }
     .modal-backdrop.open { opacity: 1; pointer-events: auto; }
     .modal-box {
-      background: linear-gradient(145deg, #0f1235, #0a0d22);
-      border: 1px solid rgba(255,255,255,0.13);
-      border-radius: 20px;
-      padding: 2.25rem 2rem 2rem;
-      max-width: 380px; width: calc(100% - 3rem);
-      position: relative;
-      transform: scale(0.94) translateY(12px);
+      background: linear-gradient(145deg, #0f1530, #0a0c1a);
+      border: 1px solid rgba(255,255,255,0.13); border-radius: 20px;
+      padding: 2.25rem 2rem 2rem; max-width: 380px; width: calc(100% - 3rem);
+      position: relative; transform: scale(0.94) translateY(12px);
       transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
     }
     .modal-backdrop.open .modal-box { transform: none; }
     .modal-close {
       position: absolute; top: 1rem; right: 1.125rem;
-      background: none; border: none;
-      color: rgba(255,255,255,0.45); font-size: 1.375rem;
-      line-height: 1; cursor: pointer;
-      padding: 0.25rem 0.375rem; border-radius: 6px;
-      transition: color 0.15s, background 0.15s;
+      background: none; border: none; color: rgba(255,255,255,0.45);
+      font-size: 1.375rem; line-height: 1; cursor: pointer;
+      padding: 0.25rem 0.375rem; border-radius: 6px; transition: color 0.15s, background 0.15s;
     }
     .modal-close:hover { color: #fff; background: rgba(255,255,255,0.08); }
-    .modal-title {
-      font-family: var(--font-serif); font-size: 1.3125rem;
-      font-weight: 700; color: #fff;
-      margin-bottom: 1rem; letter-spacing: -0.01em;
+    .modal-title { font-family: var(--font-serif); font-size: 1.3125rem; font-weight: 700; color: #fff; margin-bottom: 1rem; letter-spacing: -0.01em; }
+    .modal-body { font-size: 0.9375rem; color: rgba(255,255,255,0.62); line-height: 1.72; }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .form-row { flex-direction: column; border-radius: 16px; padding: 12px; gap: 10px; }
+      .form-row input[type="email"] { padding: 0.5rem 0.25rem; width: 100%; }
+      .form-row button { width: 100%; padding: 0.75rem; border-radius: 10px; }
+      .nav-pill, .discord-btn { display: none; }
+      .footer-center { display: none; }
     }
-    .modal-body {
-      font-size: 0.9375rem; color: rgba(255,255,255,0.6); line-height: 1.72;
-    }
-    .modal-body strong { color: rgba(255,255,255,0.88); }
+    @media (max-width: 400px) { .headline { font-size: 3rem; } }
   </style>
 </head>
 <body>
 
-  <!-- DR flag top bar -->
   <div class="flag-bar" aria-hidden="true"></div>
-
-  <!-- Particle canvas -->
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-  <!-- Gradient blobs -->
   <div class="blobs" aria-hidden="true">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
   </div>
 
-  <!-- Nav -->
   <nav aria-label="Navegación principal">
     <div class="nav-shade"></div>
     <a href="#" class="brand" aria-label="Cloud809 inicio">
       <img src="/logo.png" alt="" class="logo-img" aria-hidden="true" />
       Cloud809
     </a>
-    <button id="nav-notify-btn" class="nav-pill">Notifícame ↓</button>
+    <div class="nav-actions">
+      <a href="https://discord.gg/placeholder" class="discord-btn" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        <span data-i18n="discord_btn">Discord</span>
+      </a>
+      <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">EN</button>
+      <button id="nav-notify-btn" class="nav-pill" data-i18n="nav_notify">Notifícame ↓</button>
+    </div>
   </nav>
 
-  <!-- ── HERO ─────────────────────────────────────────────────────────── -->
   <section class="hero layer" aria-labelledby="hero-h1">
     <div class="hero-inner">
 
       <button class="badge" id="launch-badge" aria-haspopup="dialog">
         <span class="badge-dot" aria-hidden="true"></span>
-        Lanzamiento próximo
+        <span data-i18n="badge">Lanzamiento · 06.01.2026</span>
       </button>
 
       <h1 class="headline" id="hero-h1">
-        Born in <span class="accent-dr">DR</span>.<br>
-        Built for <span class="accent-all">Everyone</span>.
+        <span data-i18n="headline_prefix">Nacido en</span> <span class="accent-dr">DR</span>.<br>
+        <span data-i18n="headline_suffix">Hecho para</span> <span class="accent-all" data-i18n="headline_all">Todos</span>.
       </h1>
 
-      <p class="sub">
-        Cloud809 es una plataforma de educación tech sin fines de lucro, nacida en la República Dominicana — cursos gratuitos, base de conocimiento, red de expertos y comunidad abierta.
-      </p>
+      <p class="sub" data-i18n="sub">Cloud809 es una plataforma de educación tech sin fines de lucro, nacida en la República Dominicana — cursos gratuitos, base de conocimiento, red de expertos y comunidad abierta.</p>
 
-      <div class="areacode" aria-label="809, el código de área de casa">
+      <div class="areacode" aria-label="809 — el código de área de casa">
         <span class="areacode-num">809</span>
         <span class="areacode-sep" aria-hidden="true"></span>
-        <span>el código de área de casa</span>
+        <span data-i18n="areacode_text">el código de área de casa</span>
       </div>
 
       <div class="form-wrap" id="notify-form">
         <form id="email-form" action="https://formspree.io/f/xqenerle" method="POST" novalidate>
           <div class="form-row">
-            <label for="email" class="visually-hidden">Correo electrónico</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="tu@correo.com"
-              required
-              autocomplete="email"
-              inputmode="email"
-            />
+            <label for="email" class="visually-hidden">Email</label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.com"
+              data-i18n-placeholder="placeholder" required autocomplete="email" inputmode="email" />
             <button type="submit" id="submit-btn">Notifícame</button>
           </div>
-          <p class="form-hint">Sin spam — solo un correo cuando lancemos. 🇩🇴</p>
+          <p class="form-hint" data-i18n="form_hint">Sin spam — solo un correo cuando lancemos. 🇩🇴</p>
           <p class="form-error" id="form-error"></p>
         </form>
-        <div class="success-msg" id="success-msg" role="status" aria-live="polite">
-          ✓&nbsp; ¡Listo! Te avisamos cuando lancemos. 🚀
-        </div>
+        <div class="success-msg" id="success-msg" role="status" aria-live="polite"></div>
       </div>
 
       <div class="social-row" aria-label="Redes sociales">
-        <!-- Update href with your LinkedIn URL -->
         <a href="https://www.linkedin.com/company/109252913" class="social-btn" aria-label="LinkedIn" rel="noopener noreferrer" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -683,40 +426,45 @@
     </div>
   </section>
 
-  <!-- Section break -->
   <div class="divider layer" aria-hidden="true"></div>
 
-  <!-- ── FEATURES ───────────────────────────────────────────────────────── -->
   <section class="features-section layer" aria-labelledby="features-h2">
     <div class="features-header">
-      <h2 id="features-h2">Lo que viene</h2>
-      <p>Una plataforma para personas reales, en el idioma en que piensan.</p>
+      <h2 id="features-h2" data-i18n="features_title">Lo que viene</h2>
+      <p data-i18n="features_sub">Una plataforma para personas reales, en el idioma en que piensan.</p>
     </div>
     <div class="features-grid">
       <a href="/v1/#courses" class="feat-card">
         <span class="feat-icon" aria-hidden="true">📚</span>
-        <h3>Cursos gratuitos</h3>
-        <p>Rutas de aprendizaje en español e inglés, aportadas por practicantes — no solo teoría.</p>
+        <h3 data-i18n="feat1_title">Cursos gratuitos</h3>
+        <p data-i18n="feat1_body">Rutas de aprendizaje en español e inglés, aportadas por practicantes — no solo teoría.</p>
       </a>
       <a href="/v1/#kb" class="feat-card">
         <span class="feat-icon" aria-hidden="true">📖</span>
-        <h3>Base de conocimiento</h3>
-        <p>Artículos mantenidos por la comunidad sobre herramientas, conceptos y tutoriales que importan en RD.</p>
+        <h3 data-i18n="feat2_title">Base de conocimiento</h3>
+        <p data-i18n="feat2_body">Artículos mantenidos por la comunidad sobre herramientas, conceptos y tutoriales que importan en RD.</p>
       </a>
       <a href="/v1/#experts" class="feat-card">
         <span class="feat-icon" aria-hidden="true">🧠</span>
-        <h3>Red de expertos</h3>
-        <p>Conéctate con profesionales tech locales y de la diáspora dispuestos a compartir lo que saben.</p>
+        <h3 data-i18n="feat3_title">Red de expertos</h3>
+        <p data-i18n="feat3_body">Conéctate con profesionales tech locales y de la diáspora dispuestos a compartir lo que saben.</p>
       </a>
       <a href="/v1/#community" class="feat-card">
         <span class="feat-icon" aria-hidden="true">🤝</span>
-        <h3>Comunidad</h3>
-        <p>Publica preguntas, encuentra colaboradores y construye junto a otros — completamente abierto, sin gatekeeping.</p>
+        <h3 data-i18n="feat4_title">Comunidad</h3>
+        <p data-i18n="feat4_body">Publica preguntas, encuentra colaboradores y construye junto a otros — completamente abierto, sin gatekeeping.</p>
+      </a>
+      <a href="https://discord.gg/placeholder" class="feat-card feat-card--cta" target="_blank" rel="noopener noreferrer">
+        <span class="feat-icon" aria-hidden="true">💬</span>
+        <div class="feat-text">
+          <h3 data-i18n="feat5_title">Discord</h3>
+          <p data-i18n="feat5_body">Únete a nuestro servidor comunitario. Haz preguntas, comparte tu trabajo y conecta con quienes construyen Cloud809.</p>
+        </div>
+        <span class="cta-arrow" aria-hidden="true">→</span>
       </a>
     </div>
   </section>
 
-  <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
   <footer class="layer">
     <div class="footer-inner">
       <button class="footer-brand-btn" id="footer-brand-btn" aria-label="Volver arriba">
@@ -724,134 +472,205 @@
         Cloud809
       </button>
       <div class="footer-center">
-        <span>Sin fines de lucro</span>
+        <span data-i18n="footer_nonprofit">Sin fines de lucro</span>
         <span class="footer-dot" aria-hidden="true"></span>
-        <a href="https://github.com/sarahluz/cloud809" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Código abierto</a>
+        <a href="https://github.com/sarahluz/cloud809" target="_blank" rel="noopener noreferrer"
+           style="color:inherit;text-decoration:none;" data-i18n="footer_opensource">Código abierto</a>
         <span class="footer-dot" aria-hidden="true"></span>
-        <span>🇩🇴 Hecho con ❤️ en RD</span>
+        <span data-i18n="footer_made">🇩🇴 · Hecho con amor en RD por Sari</span>
       </div>
-      <span>© 2026</span>
+      <span data-i18n="footer_year">© 2026</span>
     </div>
   </footer>
 
-  <!-- Launch modal -->
-  <div class="modal-backdrop" id="launch-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-backdrop" id="launch-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
     <div class="modal-box">
       <button class="modal-close" id="modal-close" aria-label="Cerrar">×</button>
-      <p class="modal-title" id="modal-title">¿Cuándo lanzamos?</p>
+      <p class="modal-title" id="modal-title-el" data-i18n="modal_title">¿Cuándo lanzamos?</p>
       <div class="modal-body">
-        <p>Estamos construyendo Cloud809 en abierto, a nuestro propio ritmo. <strong>El lanzamiento público está previsto para 2025</strong>, comenzando con los cursos y la base de conocimiento.</p>
-        <br>
-        <p>Déjanos tu correo arriba y serás de los primeros en saber cuando abramos las puertas. Sin spam — solo ese correo.</p>
+        <p data-i18n="modal_body">Estamos en construcción activa. Únete a la lista y serás de los primeros.</p>
       </div>
     </div>
   </div>
 
   <script>
-    /* ── Particle network ──────────────────────────────────────────────── */
+    /* ── Translations ──────────────────────────────────────────────────── */
+    const T = {
+      en: {
+        badge:            'Early Release · 06.01.2026',
+        headline_prefix:  'Born in',
+        headline_suffix:  'Built for',
+        headline_all:     'Everyone',
+        sub:              'Cloud809 is a nonprofit tech education platform, born in the Dominican Republic — free courses, knowledge base, expert network, and open community.',
+        areacode_text:    'the DR home area code',
+        placeholder:      'your@email.com',
+        submit:           'Notify me',
+        form_hint:        'No spam — just one email when we launch. 🇩🇴',
+        form_error_input: 'Enter a valid email.',
+        form_error_net:   'Something went wrong. Try again.',
+        sending:          'Sending...',
+        success:          '✓ You\'re on the list! See you at launch.',
+        features_title:   'What\'s coming',
+        features_sub:     'A platform for real people, in the language they think in.',
+        feat1_title:      'Free Courses',
+        feat1_body:       'Learning paths in Spanish and English, contributed by practitioners — not just theory.',
+        feat2_title:      'Knowledge Base',
+        feat2_body:       'Community-maintained articles on tools, concepts, and tutorials that matter in DR.',
+        feat3_title:      'Expert Network',
+        feat3_body:       'Connect with local and diaspora tech professionals willing to share what they know.',
+        feat4_title:      'Community',
+        feat4_body:       'Post questions, find collaborators, and build together — fully open, no gatekeeping.',
+        feat5_title:      'Discord',
+        feat5_body:       'Join our community server. Ask questions, share your work, and connect with the people building Cloud809.',
+        footer_nonprofit: 'Nonprofit',
+        footer_opensource:'Open source',
+        footer_made:      '🇩🇴 · Made with love in DR by Sari',
+        footer_year:      '© 2026',
+        nav_notify:       'Notify me ↓',
+        modal_title:      'When are we launching?',
+        modal_body:       'We\'re in active development. Join the waitlist and you\'ll be first in.',
+        discord_btn:      'Discord',
+      },
+      es: {
+        badge:            'Lanzamiento · 06.01.2026',
+        headline_prefix:  'Nacido en',
+        headline_suffix:  'Hecho para',
+        headline_all:     'Todos',
+        sub:              'Cloud809 es una plataforma de educación tech sin fines de lucro, nacida en la República Dominicana — cursos gratuitos, base de conocimiento, red de expertos y comunidad abierta.',
+        areacode_text:    'el código de área de casa',
+        placeholder:      'tu@correo.com',
+        submit:           'Notifícame',
+        form_hint:        'Sin spam — solo un correo cuando lancemos. 🇩🇴',
+        form_error_input: 'Ingresa un correo válido.',
+        form_error_net:   'Algo salió mal. Intenta de nuevo.',
+        sending:          'Enviando...',
+        success:          '✓ ¡Listo! Nos vemos en el lanzamiento.',
+        features_title:   'Lo que viene',
+        features_sub:     'Una plataforma para personas reales, en el idioma en que piensan.',
+        feat1_title:      'Cursos gratuitos',
+        feat1_body:       'Rutas de aprendizaje en español e inglés, aportadas por practicantes — no solo teoría.',
+        feat2_title:      'Base de conocimiento',
+        feat2_body:       'Artículos mantenidos por la comunidad sobre herramientas, conceptos y tutoriales que importan en RD.',
+        feat3_title:      'Red de expertos',
+        feat3_body:       'Conéctate con profesionales tech locales y de la diáspora dispuestos a compartir lo que saben.',
+        feat4_title:      'Comunidad',
+        feat4_body:       'Publica preguntas, encuentra colaboradores y construye junto a otros — completamente abierto, sin gatekeeping.',
+        feat5_title:      'Discord',
+        feat5_body:       'Únete a nuestro servidor comunitario. Haz preguntas, comparte tu trabajo y conecta con quienes construyen Cloud809.',
+        footer_nonprofit: 'Sin fines de lucro',
+        footer_opensource:'Código abierto',
+        footer_made:      '🇩🇴 · Hecho con amor en RD por Sari',
+        footer_year:      '© 2026',
+        nav_notify:       'Notifícame ↓',
+        modal_title:      '¿Cuándo lanzamos?',
+        modal_body:       'Estamos en construcción activa. Únete a la lista y serás de los primeros.',
+        discord_btn:      'Discord',
+      }
+    }
+
+    let currentLang = 'es'
+    const submitBtn = document.getElementById('submit-btn')
+
+    function setLang(lang) {
+      currentLang = lang
+      localStorage.setItem('cloud809_lang', lang)
+      document.documentElement.lang = lang
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n
+        if (T[lang][key] === undefined) return
+        if (el === submitBtn && el.disabled) return
+        el.textContent = T[lang][key]
+      })
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder
+        if (T[lang][key] !== undefined) el.placeholder = T[lang][key]
+      })
+      document.getElementById('lang-toggle').textContent = lang === 'es' ? 'EN' : 'ES'
+    }
+
+    ;(function () {
+      const saved    = localStorage.getItem('cloud809_lang')
+      const detected = navigator.language && navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+      setLang(saved || detected)
+    })()
+
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      setLang(currentLang === 'es' ? 'en' : 'es')
+    })
+
+    /* ── Particles ──────────────────────────────────────────────────────── */
     ;(function () {
       const canvas = document.getElementById('bg-canvas')
       const ctx    = canvas.getContext('2d')
       let pts = [], W, H
 
-      function resize() {
-        W = canvas.width  = window.innerWidth
-        H = canvas.height = window.innerHeight
-      }
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight }
 
       function Pt() {
         this.x  = Math.random() * W
         this.y  = Math.random() * H
-        this.vx = (Math.random() - 0.5) * 0.38
-        this.vy = (Math.random() - 0.5) * 0.38
-        this.r  = Math.random() * 1.4 + 0.4
-        this.a  = Math.random() * 0.3 + 0.05
+        this.vx = (Math.random() - 0.5) * 0.4
+        this.vy = (Math.random() - 0.5) * 0.4
+        this.r  = Math.random() * 1.6 + 0.5
+        this.a  = Math.random() * 0.45 + 0.1
       }
-
       Pt.prototype.tick = function () {
         this.x += this.vx; this.y += this.vy
-        if (this.x < 0)  this.x = W
-        if (this.x > W)  this.x = 0
-        if (this.y < 0)  this.y = H
-        if (this.y > H)  this.y = 0
+        if (this.x < 0) this.x = W; if (this.x > W) this.x = 0
+        if (this.y < 0) this.y = H; if (this.y > H) this.y = 0
       }
 
-      function init() {
-        const n = Math.min(Math.floor(W * H / 13000), 90)
-        pts = Array.from({ length: n }, () => new Pt())
-      }
+      function init() { pts = Array.from({ length: Math.min(Math.floor(W * H / 9000), 110) }, () => new Pt()) }
 
-      const D = 125
-
+      const D = 130
       function frame() {
         ctx.clearRect(0, 0, W, H)
         for (let i = 0; i < pts.length; i++) {
           pts[i].tick()
           for (let j = i + 1; j < pts.length; j++) {
-            const dx = pts[i].x - pts[j].x
-            const dy = pts[i].y - pts[j].y
-            const d  = Math.sqrt(dx*dx + dy*dy)
+            const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y
+            const d = Math.sqrt(dx*dx + dy*dy)
             if (d < D) {
-              ctx.beginPath()
-              ctx.moveTo(pts[i].x, pts[i].y)
-              ctx.lineTo(pts[j].x, pts[j].y)
-              ctx.strokeStyle = `rgba(255,255,255,${(1 - d/D) * 0.09})`
-              ctx.lineWidth   = 0.5
-              ctx.stroke()
+              ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y)
+              ctx.strokeStyle = `rgba(255,255,255,${(1-d/D)*0.12})`; ctx.lineWidth = 0.5; ctx.stroke()
             }
           }
-          ctx.beginPath()
-          ctx.arc(pts[i].x, pts[i].y, pts[i].r, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(255,255,255,${pts[i].a})`
-          ctx.fill()
+          ctx.beginPath(); ctx.arc(pts[i].x, pts[i].y, pts[i].r, 0, Math.PI*2)
+          ctx.fillStyle = `rgba(255,255,255,${pts[i].a})`; ctx.fill()
         }
         requestAnimationFrame(frame)
       }
-
       resize(); init(); frame()
-
-      let t
-      window.addEventListener('resize', () => {
-        clearTimeout(t)
-        t = setTimeout(() => { resize(); init() }, 220)
-      })
+      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { resize(); init() }, 220) })
     })()
 
-    /* ── Scroll-triggered feature cards ───────────────────────────────── */
+    /* ── Scroll-triggered cards ─────────────────────────────────────────── */
     ;(function () {
       const io = new IntersectionObserver(
-        entries => entries.forEach(e => {
-          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target) }
-        }),
+        entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target) } }),
         { threshold: 0.1 }
       )
       document.querySelectorAll('.feat-card').forEach(c => io.observe(c))
     })()
 
-    /* ── Nav "Notifícame" smooth scroll ────────────────────────────────── */
+    /* ── Nav scroll ─────────────────────────────────────────────────────── */
     document.getElementById('nav-notify-btn').addEventListener('click', () => {
       document.getElementById('notify-form').scrollIntoView({ behavior: 'smooth', block: 'center' })
     })
 
-    /* ── Footer logo scroll to top ─────────────────────────────────────── */
+    /* ── Footer scroll to top ───────────────────────────────────────────── */
     document.getElementById('footer-brand-btn').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     })
 
-    /* ── Launch badge modal ────────────────────────────────────────────── */
+    /* ── Badge modal ────────────────────────────────────────────────────── */
     ;(function () {
       const backdrop = document.getElementById('launch-modal')
       const openBtn  = document.getElementById('launch-badge')
       const closeBtn = document.getElementById('modal-close')
 
-      function openModal() {
-        backdrop.classList.add('open')
-        closeBtn.focus()
-      }
-      function closeModal() {
-        backdrop.classList.remove('open')
-        openBtn.focus()
-      }
+      function openModal()  { backdrop.classList.add('open'); closeBtn.focus() }
+      function closeModal() { backdrop.classList.remove('open'); openBtn.focus() }
 
       openBtn.addEventListener('click', openModal)
       closeBtn.addEventListener('click', closeModal)
@@ -859,58 +678,36 @@
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal() })
     })()
 
-    /* ── Form submission ───────────────────────────────────────────────── */
+    /* ── Form ───────────────────────────────────────────────────────────── */
     ;(function () {
       const form       = document.getElementById('email-form')
       const emailInput = document.getElementById('email')
       const successMsg = document.getElementById('success-msg')
-      const submitBtn  = document.getElementById('submit-btn')
       const errorEl    = document.getElementById('form-error')
-      const origLabel  = submitBtn.textContent
 
-      function showError(msg) {
-        errorEl.textContent   = msg
-        errorEl.style.display = 'block'
-      }
-      function clearError() {
-        errorEl.style.display = 'none'
-        errorEl.textContent   = ''
-      }
+      function showError(msg) { errorEl.textContent = msg; errorEl.style.display = 'block' }
+      function clearError()   { errorEl.style.display = 'none'; errorEl.textContent = '' }
 
       form.addEventListener('submit', async e => {
-        e.preventDefault()
-        clearError()
-
+        e.preventDefault(); clearError()
         const email = emailInput.value.trim()
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          showError('Ingresa un correo válido.')
-          emailInput.focus()
-          return
+          showError(T[currentLang].form_error_input); emailInput.focus(); return
         }
-
-        submitBtn.disabled    = true
-        submitBtn.textContent = 'Enviando...'
-
+        submitBtn.disabled = true; submitBtn.textContent = T[currentLang].sending
         try {
-          const res = await fetch(form.action, {
-            method:  'POST',
-            body:    new FormData(form),
-            headers: { Accept: 'application/json' }
-          })
-
+          const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
           if (res.ok) {
-            form.style.display       = 'none'
-            successMsg.textContent   = `✓ ¡Listo! Te avisamos en ${email} 🚀`
+            form.style.display = 'none'
+            successMsg.textContent = T[currentLang].success
             successMsg.style.display = 'block'
           } else {
-            submitBtn.disabled    = false
-            submitBtn.textContent = origLabel
-            showError('Algo salió mal. Intenta de nuevo.')
+            submitBtn.disabled = false; submitBtn.textContent = T[currentLang].submit
+            showError(T[currentLang].form_error_net)
           }
         } catch {
-          submitBtn.disabled    = false
-          submitBtn.textContent = origLabel
-          showError('Algo salió mal. Intenta de nuevo.')
+          submitBtn.disabled = false; submitBtn.textContent = T[currentLang].submit
+          showError(T[currentLang].form_error_net)
         }
       })
     })()
