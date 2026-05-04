@@ -8,7 +8,8 @@
   <meta property="og:title" content="Cloud809 — Born in DR. Built for Everyone." />
   <meta property="og:description" content="Educación tech para RD y el mundo. Únete a la lista de espera." />
   <meta property="og:type" content="website" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <link rel="apple-touch-icon" href="/images/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700;1,9..144,900&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -92,7 +93,7 @@
       font-family: var(--font-s); font-size: 17px; font-weight: 700;
       color: #fff; text-decoration: none;
     }
-    .brand-logo { height: 28px; width: auto; filter: brightness(0) invert(1); display: block; }
+    .brand-logo { height: 28px; width: auto; filter: drop-shadow(0 0 8px rgba(27,31,191,0.3)); display: block; }
     .nav-actions { display: flex; align-items: center; gap: 0.5rem; }
     .discord-btn {
       display: flex; align-items: center; gap: 0.375rem;
@@ -123,7 +124,7 @@
       min-height: 100dvh;
       padding-top: calc(var(--nav-h) + 3px + 4rem);
       padding-bottom: 4rem;
-      display: flex; align-items: center;
+      display: flex; align-items: flex-start;
       position: relative; z-index: 1;
     }
     .hero-grid {
@@ -164,7 +165,7 @@
     .hero-headline {
       display: flex; flex-direction: column; gap: 0;
       font-family: var(--font-s);
-      font-size: clamp(2rem, 8vw, 5.5rem);
+      font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 700; line-height: 1.02; letter-spacing: -2px;
     }
     .hl-1 { font-style: italic; color: #fff; }
@@ -210,7 +211,7 @@
     #logo-parallax { transition: transform 0.3s ease; }
     .hero-logo {
       width: 280px; display: block;
-      filter: brightness(0) invert(1) drop-shadow(0 0 40px rgba(27,31,191,0.4));
+      filter: drop-shadow(0 0 40px rgba(27,31,191,0.5));
       animation: breathe 4s ease-in-out infinite;
     }
     @keyframes breathe {
@@ -238,7 +239,7 @@
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       grid-template-rows: auto auto;
-      gap: 1rem;
+      column-gap: 1rem; row-gap: 16px;
     }
 
     .feat-card {
@@ -268,8 +269,8 @@
     /* Hover arrow */
     .feat-card::after {
       content: '→';
-      position: absolute; bottom: 16px; right: 18px;
-      font-size: 1rem; color: rgba(255,255,255,0.4);
+      position: absolute; bottom: 16px; right: 16px;
+      font-size: 18px; color: rgba(255,255,255,0.5);
       opacity: 0; transform: translateX(-6px);
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
@@ -413,9 +414,9 @@
           </button>
 
           <h1 class="hero-headline">
-            <span class="hl-1" data-i18n="hero_line1">Nacido en DR.</span>
-            <span class="hl-2" data-i18n="hero_line2">Hecho para</span>
-            <span class="hl-3" data-i18n="hero_line3">Todos.</span>
+            <span class="hl-1">Born in DR.</span>
+            <span class="hl-2">Built for</span>
+            <span class="hl-3">Everyone.</span>
           </h1>
 
           <p class="areacode">
@@ -430,7 +431,7 @@
                   <label for="email" class="visually-hidden">Email</label>
                   <input type="email" id="email" name="email" placeholder="tu@correo.com"
                     data-i18n-placeholder="placeholder" required autocomplete="email" inputmode="email" />
-                  <button type="submit" id="submit-btn">Notifícame</button>
+                  <button type="submit" id="submit-btn" data-i18n="submit">Notifícame</button>
                 </div>
                 <p class="form-hint" data-i18n="form_hint">Sin spam — solo un correo cuando lancemos.</p>
                 <p class="form-error" id="form-error"></p>
@@ -510,7 +511,7 @@
         <span class="footer-sep">·</span>
         <a href="https://github.com/sarahluz/cloud809" target="_blank" rel="noopener noreferrer" data-i18n="footer_oss">Código abierto</a>
         <span class="footer-sep">·</span>
-        <span data-i18n="footer_made">🇩🇴 Hecho con amor en RD por Sari</span>
+        <span data-i18n="footer_made">&#x1F1E9;&#x1F1F4; Hecho con amor en RD por Sari</span>
       </div>
       <span data-i18n="footer_year">© 2026</span>
     </div>
@@ -558,7 +559,7 @@
         card5_body:       'Join our community server. Ask questions, share your work, and connect with the people building Cloud809.',
         footer_nonprofit: 'Nonprofit',
         footer_oss:       'Open source',
-        footer_made:      '🇩🇴 Made with love in DR by Sari',
+        footer_made:      '\u{1F1E9}\u{1F1F4} Made with love in DR by Sari',
         footer_year:      '© 2026',
         modal_badge_title:'When are we launching?',
         modal_badge_body: 'Cloud809 is in active development. We\'re building the courses, knowledge base, and expert network right now. Join the waitlist and you\'ll be the first to know when we go live.',
@@ -608,7 +609,7 @@
         card5_body:       'Únete a nuestro servidor comunitario. Haz preguntas, comparte tu trabajo y conecta con quienes construyen Cloud809.',
         footer_nonprofit: 'Sin fines de lucro',
         footer_oss:       'Código abierto',
-        footer_made:      '🇩🇴 Hecho con amor en RD por Sari',
+        footer_made:      '\u{1F1E9}\u{1F1F4} Hecho con amor en RD por Sari',
         footer_year:      '© 2026',
         modal_badge_title:'¿Cuándo lanzamos?',
         modal_badge_body: 'Cloud809 está en desarrollo activo. Estamos construyendo los cursos, la base de conocimiento y la red de expertos ahora mismo. Únete a la lista y serás el primero en enterarse.',
